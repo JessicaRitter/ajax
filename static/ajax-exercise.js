@@ -4,10 +4,8 @@
 // PART 1: SHOW A FORTUNE
 
 
-function getFortune() {
-    $.get("/fortune", function (results) {
-       $("#fortune-text").html(results);
-    });
+function getFortune(results) {
+    $("#fortune-text").load(results);
 }
 
 
