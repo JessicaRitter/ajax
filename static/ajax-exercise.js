@@ -20,20 +20,18 @@ $('#get-fortune-button').on('click', getFortune);
 
 // PART 2: SHOW WEATHER
 
-function getWeather(results) {
-    $("#weather-info").html(results["forecast"]);
 
-}
 
 function showWeather(evt) {
     evt.preventDefault();
 
     var url = "/weather.json?zipcode=" + $("#zipcode-field").val();
 
-    $.get(url, getWeather);
+    $.get(url, function (results) { $("#weather-info").html(results["forecast"]);
+
+});
 
 }
-
 
 
 $("#weather-form").on('submit', showWeather);
@@ -58,14 +56,9 @@ function getMelonInfo (results) {
 function orderMelons(evt) {
     evt.preventDefault();
 
-    var formInputs = {
-        "qty": $('#qty-field').val(),
-        "melon_type": $("#melon-type-field").val(),
-    };
+    var formValues = $('#order-form').serialize();
 
-    console.log(formInputs);
-
-    $.post("/order-melons.json", formInputs, getMelonInfo);
+    $.post("/order-melons.json", formValues, getMelonInfo);
 
     // TODO: show the result message after your form
     // TODO: if the result code is ERROR, make it show up in red (see our CSS!)
