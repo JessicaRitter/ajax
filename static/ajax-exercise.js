@@ -3,26 +3,37 @@
 
 // PART 1: SHOW A FORTUNE
 
-function showFortune(evt) {
 
-    // TODO: get the fortune and show it in the #fortune-text div
+function getFortune() {
+    $.get("/fortune", function (results) {
+       $("#fortune-text").html(results);
+    });
 }
 
-$('#get-fortune-button').on('click', showFortune);
+
+
+$('#get-fortune-button').on('click', getFortune);
 
 
 
 
 
 // PART 2: SHOW WEATHER
+function getWeather(results) {
+    $("#weather-info").html(results["forecast"]);
+
+}
 
 function showWeather(evt) {
     evt.preventDefault();
 
     var url = "/weather.json?zipcode=" + $("#zipcode-field").val();
 
-    // TODO: request weather with that URL and show the forecast in #weather-info
+    $.get(url, getWeather);
+
 }
+
+
 
 $("#weather-form").on('submit', showWeather);
 
